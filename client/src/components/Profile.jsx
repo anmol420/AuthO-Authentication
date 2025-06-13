@@ -10,41 +10,47 @@ function Profile() {
 
     const [searchParams] = useSearchParams();
 
-    React.useEffect(() => {
-        const token = searchParams.get('token');
-        const role = searchParams.get('role');
+    // React.useEffect(() => {
+    //     const token = searchParams.get('token');
+    //     const role = searchParams.get('role');
 
-        if (token && role) {
-            axios.post(
-                'https://baggagebugs-1.onrender.com/api/v1/user/setCookies',
-                { token, role },
-                { withCredentials: true }
-            ).then(() => {
-                window.history.replaceState(null, "", "/landingpage");
-            }).catch((err) => {
-                console.error("Cookie setting failed", err);
-            });
-        }
+    //     if (token && role) {
+    //         axios.post(
+    //             'https://baggagebugs-1.onrender.com/api/v1/user/setCookies',
+    //             { token, role },
+    //             { withCredentials: true }
+    //         ).then(() => {
+    //             window.history.replaceState(null, "", "/landingpage");
+    //         }).catch((err) => {
+    //             console.error("Cookie setting failed", err);
+    //         });
+    //     }
+    // }, []);
+
+    React.useEffect(() => {
+        // Wait a moment if needed to ensure cookies are available
+        const callPostLoginAPI = async () => {
+            try {
+                const token = searchParams.get('token');
+                const role = searchParams.get('role');
+                const res = await axios.post(
+                            'https://baggagebugs-1.onrender.com/api/v1/user/setCookies',
+                            { token, role },
+                            { withCredentials: true }
+                        );
+                console.log('User session verified:', res.data);
+                navigate('/dashboard');
+            } catch (err) {
+                console.error('Session check failed:', err);
+                navigate('/login');
+            }
+        };
+        callPostLoginAPI();
     }, []);
 
     return (
         <div className='auth_card'>
-            <div className='profile_container'>
-                <span className='name'>
-                    <Avatar sx={{backgroundColor: 'orangered', textTransform: 'capitalize'}}>A</Avatar>
-                </span>
-                <span className='full_name'>
-                    name
-                </span>
-                <span className='email'>
-                    email@email.com
-                </span>
-            </div>
-            <div className='action'>
-                <Button endIcon={<Logout />} variant='contained' fullWidth onClick={() => navigate('/login')}>
-                    Logout
-                </Button>
-            </div>
+            Logging in ...
         </div>
     )
 }
