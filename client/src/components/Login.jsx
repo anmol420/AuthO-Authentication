@@ -33,9 +33,7 @@ function Login() {
     };
 
     const loginWithGoogle = () => {
-        window.location.href = 'https://baggagebugs-1.onrender.com/api/v1/user/auth/google', {
-            withCredentials: true,
-        };
+        window.location.href = 'https://baggagebugs-1.onrender.com/api/v1/user/auth/google';
     };
 
     return (
