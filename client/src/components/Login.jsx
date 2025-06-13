@@ -33,7 +33,9 @@ function Login() {
     };
 
     const loginWithGoogle = () => {
-        window.location.href = 'http://localhost:5000/auth/google';
+        window.location.href = 'https://baggagebugs-1.onrender.com/api/v1/user/auth/google', {
+            withCredentials: true,
+        };
     };
 
     return (
