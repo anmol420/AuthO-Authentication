@@ -33,7 +33,7 @@ function Profile() {
 
     return (
         <div className='auth_card'>
-            <button onClick={() => callPostLoginAPI()}>Login</button>
+            <button onClick={callPostLoginAPI}>Login</button>
             Logging in ...
         </div>
     );
