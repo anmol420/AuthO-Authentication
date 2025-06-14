@@ -27,9 +27,9 @@ function Profile() {
         }
     };
 
-    React.useEffect(() => {
-        callPostLoginAPI();
-    }, []);
+    // React.useEffect(() => {
+    //     callPostLoginAPI();
+    // }, []);
 
     return (
         <div className='auth_card'>
