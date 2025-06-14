@@ -4,39 +4,44 @@ import React, { useEffect, useState } from 'react';
 import useGeneral from '../hooks/useGeneral.js';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie'; // ← import js-cookie
 
 function Profile() {
     const { navigate } = useGeneral();
     const [searchParams] = useSearchParams();
 
-    // Store token and role in state
     const [token, setToken] = useState(null);
     const [role, setRole] = useState(null);
 
-    // On initial load, get token and role from URL
-    useEffect(() => {
-        const urlToken = searchParams.get('token');
-        const urlRole = searchParams.get('role');
+    // Extract token and role from URL and store in cookies
+    
 
-        if (urlToken && urlRole) {
-            setToken(urlToken);
-            setRole(urlRole);
+    // Get token and role from cookies
+    useEffect(() => {
+        const token = searchParams.get('token');
+        const role = searchParams.get('role');
+         setToken(token);
+        setRole(role);
+    }, []);
+
+    // When token and role are ready, make the API call
+    useEffect(() => {
+        if (token && role) {
+            callPostLoginAPI();
         }
-    }, [searchParams]);
+    }, [token, role]);
 
     const callPostLoginAPI = async () => {
-        if (!token || !role) {
-            console.warn('Missing token or role');
-            return;
-        }
-
         try {
-            const res = await axios.post(
-                'https://baggagebugs-1.onrender.com/api/v1/user/setCookies',
-                { token, role },
-                { withCredentials: true }
-            );
-            console.log('User session verified:', res.data);
+            // const res = await axios.post(
+            //     'https://baggagebugs-1.onrender.com/api/v1/user/setCookies',
+            //     { token, role },
+            //     { withCredentials: true }
+            // );
+            // console.log('User session verified:', res.data);
+            console.log('bhai mai nhi dikhunga mr india hue',token, role);
+            localStorage.setItem("token", token);
+            localStorage.setItem("role", role);
             navigate('/dashboard');
         } catch (err) {
             console.error('Session check failed:', err);
@@ -46,8 +51,7 @@ function Profile() {
 
     return (
         <div className='auth_card'>
-            <button onClick={callPostLoginAPI}>Login</button>
-            Logging in ...
+            <p>Logging in...</p>
         </div>
     );
 }
