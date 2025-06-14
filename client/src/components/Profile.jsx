@@ -20,7 +20,7 @@ function Profile() {
                 { withCredentials: true }
             );
             console.log('User session verified:', res.data);
-            
+            navigate('/dashboard');
         } catch (err) {
             console.error('Session check failed:', err);
             navigate('/login');
