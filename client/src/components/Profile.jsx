@@ -8,11 +8,11 @@ import axios from 'axios';
 function Profile() {
     const { navigate } = useGeneral();
     const [searchParams] = useSearchParams();
-
-    const callPostLoginAPI = async () => {
-        try {
             const token = searchParams.get('token');
             const role = searchParams.get('role');
+    const callPostLoginAPI = async () => {
+        try {
+            
 
             const res = await axios.post(
                 'https://baggagebugs-1.onrender.com/api/v1/user/setCookies',
