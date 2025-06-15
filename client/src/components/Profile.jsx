@@ -8,7 +8,20 @@ import Cookies from 'js-cookie'; // ← import js-cookie
 
 function Profile() {
     const { navigate } = useGeneral();
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [role, setRole] = useState(localStorage.getItem('role'));
 
+  useEffect(() => {
+    if (token) localStorage.setItem('token', token);
+    if (role) localStorage.setItem('role', role);
+  }, [token, role]);
+
+  const clearAuth = () => {
+    setToken(null);
+    setRole(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+  };
 
 
 
