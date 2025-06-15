@@ -30,7 +30,7 @@ function Profile() {
       console.log("Token being used:", token);
 
       try {
-           const response = await axios.get('http://localhost:5000/api/v1/user/getUser', {
+           const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
