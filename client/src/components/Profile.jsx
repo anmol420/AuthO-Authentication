@@ -3,41 +3,39 @@ import { Avatar, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import useGeneral from '../hooks/useGeneral.js';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useSearchParams } from 'react-router-dom';
 
 function Profile() {
   const { navigate } = useGeneral();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // track loading
 
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Step 1: Store token and role from URL to localStorage (only once)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     const role = params.get('role');
 
     if (token && role) {
-      // Save token and role to localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
-
-      // Optional: navigate to dashboard
-      // navigate('/browse'); ← if you want redirect, move API call elsewhere
-    } else {
-      navigate('/login');
+      console.log("Token saved to localStorage:", token);
     }
-  }, [navigate]);
+  }, []);
 
+  // Step 2: Call API using token from localStorage
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('token');
 
       if (!token) {
+        console.warn("No token in localStorage.");
         navigate('/login');
         return;
       }
 
       try {
+        console.log('Fetching user data...', token);
         const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
           headers: {
             Authorization: `Bearer ${token}`
@@ -62,8 +60,12 @@ function Profile() {
 
   return (
     <div className='auth_card'>
- 
-      
+      <Avatar sx={{ width: 64, height: 64, marginBottom: 2 }}>
+        {user?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+      </Avatar>
+      <h2>{user?.user?.name}</h2>
+      <p>Email: {user?.user?.email}</p>
+      <p>Role: {user?.user?.role}</p>
 
       <Button
         variant='contained'
@@ -71,8 +73,7 @@ function Profile() {
         startIcon={<Logout />}
         onClick={() => {
           localStorage.clear();
-          
-          navigate('/dashboard'); // Redirect to dashboard after logout
+          navigate('/dashboard');
         }}
         style={{ marginTop: '1rem' }}
       >
