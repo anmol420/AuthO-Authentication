@@ -13,8 +13,7 @@ const Landingpage = () => {
   return (
     <div>
       <h1>Landing Page</h1>
-      {userData && <pre>{JSON.stringify(userData, null, 2)}</pre>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    
     </div>
   );
 };

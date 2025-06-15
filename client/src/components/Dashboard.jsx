@@ -21,8 +21,6 @@ function Dashboard() {
     <div>
       <h1 >Dashboard </h1>
       <p>Welcome to your dashboard!</p>
-      {userData && <pre>{JSON.stringify(userData, null, 2)}</pre>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }
