@@ -6,23 +6,9 @@ const Landingpage = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
 
-  const localToken = localStorage.getItem('token');
-  const localRole = localStorage.getItem('role');
+  
 
-  useEffect(() => {
-    if (localToken && localRole) {
-      // ✅ Set cookies before calling API
-      Cookies.set('token', localToken);
-      Cookies.set('role', localRole);
-
-      console.log('Cookies set:', Cookies.get('token'), Cookies.get('role'));
-
-      // ✅ Call API using credentials
-    
-    } else {
-      setError('Token or role missing from localStorage');
-    }
-  }, [localToken, localRole]);
+  
 
   return (
     <div>

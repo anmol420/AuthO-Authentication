@@ -3,45 +3,20 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 function Dashboard() {
-  // Step 1: Read from localStorage
-  const localToken = localStorage.getItem('token');
-  const localRole = localStorage.getItem('role');
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [role, setRole] = useState(localStorage.getItem('role'));
 
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState(null);
-
-  // Step 2 & 3: Set cookies and call API
   useEffect(() => {
-    if (localToken && localRole) {
-    //   // Set cookies
-    //   Cookies.set('token', localToken);
-    //   Cookies.set('role', localRole);
+    if (token) localStorage.setItem('token', token);
+    if (role) localStorage.setItem('role', role);
+  }, [token, role]);
 
-      // Optional: Log to verify
-      console.log('Cookies set:', Cookies.get('token'), Cookies.get('role'));
-
-      // Call API
-      const fetchData = async () => {
-        try {
-          const res = await axios.get(
-            'https://baggagebugs-1.onrender.com/api/v1/user/getUser',
-           { withCredentials: true,}
-          );
-          console.log('API Response:', res.data);
-          setUserData(res.data);
-        } catch (err) {
-          console.error('API Error:', err);
-          setError('Failed to authenticate or fetch user data');
-        }
-        
-      };
-
-      fetchData();
-    } else {
-      setError('Token or role missing from localStorage');
-    }
-  }, [localToken, localRole]);
-
+  const clearAuth = () => {
+    setToken(null);
+    setRole(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+  };
   return (
     <div>
       <h1 >Dashboard </h1>
