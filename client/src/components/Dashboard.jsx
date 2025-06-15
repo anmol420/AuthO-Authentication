@@ -16,7 +16,7 @@ function Dashboard() {
     setRole(null);
     localStorage.removeItem('token');
     localStorage.removeItem('role');
-  // };
+  };
   return (
     <div>
       <h1 >Dashboard </h1>
