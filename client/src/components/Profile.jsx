@@ -10,23 +10,11 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Step 1: Store token and role from URL to localStorage (only once)
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
-    const role = params.get('role');
-
-    if (token && role) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
-      console.log("Token saved to localStorage:", token);
-    }
-  }, []);
 
   // Step 2: Call API using token from localStorage
   useEffect(() => {
     const fetchUserData = async () => {
-      
+      const token = localStorage.getItem('token');
 
       if (!token) {
         console.warn("No token in localStorage.");
