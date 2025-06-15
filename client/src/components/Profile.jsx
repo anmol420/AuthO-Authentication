@@ -26,7 +26,7 @@ function Profile() {
   // Step 2: Call API using token from localStorage
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem('token');
+      
 
       if (!token) {
         console.warn("No token in localStorage.");
