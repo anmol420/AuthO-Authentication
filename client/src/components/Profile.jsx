@@ -10,6 +10,11 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get('token');
+    localStorage.setItem('token', token);
+    console.log("Token saved to localStorage:", token);
+  });
 
   // Step 2: Call API using token from localStorage
   useEffect(() => {
@@ -22,13 +27,19 @@ function Profile() {
         return;
       }
 
+      const babyFuckMe = "Bearer " + token;
+      console.log("Token being used:", babyFuckMe);
+
       try {
-     const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
-  headers: {
-    Authorization: `Bearer ${token}`
-  },
-  withCredentials: true // Correct placement inside the same object
-});
+        const response = await axios.get('http://localhost:5000/api/v1/user/getUser', {
+          headers: {
+            Authorization: babyFuckMe,
+          },
+          withCredentials: true,
+        });
+
+        console.log("User data fetched:", response.data);
+        
 
         setUser(response.data);
       } catch (error) {
