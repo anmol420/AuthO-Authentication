@@ -23,12 +23,12 @@ function Profile() {
       }
 
       try {
-        console.log('Fetching user data...', token);
-        const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+     const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
+  headers: {
+    Authorization: `Bearer ${token}`
+  },
+  withCredentials: true // Correct placement inside the same object
+});
 
         setUser(response.data);
       } catch (error) {
