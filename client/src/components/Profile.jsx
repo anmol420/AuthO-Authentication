@@ -10,6 +10,8 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Step 1: Store token and role from URL to localStorage (only once)
+ 
 
   // Step 2: Call API using token from localStorage
   useEffect(() => {
@@ -23,12 +25,13 @@ function Profile() {
       }
 
       try {
-     const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
+        const response = await axios.get('https://baggagebugs-1.onrender.com/api/v1/user/getUser', {
   headers: {
     Authorization: `Bearer ${token}`
   },
   withCredentials: true // Correct placement inside the same object
 });
+
 
         setUser(response.data);
       } catch (error) {
